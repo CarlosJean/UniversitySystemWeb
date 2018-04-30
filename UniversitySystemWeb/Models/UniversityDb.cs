@@ -11,5 +11,7 @@ namespace UniversitySystemWeb.Models
         public System.Data.Entity.DbSet<UniversitySystemWeb.Models.Headquarter> Headquarters { get; set; }
 
         public System.Data.Entity.DbSet<UniversitySystemWeb.Models.Student> Students { get; set; }
+
+        public System.Data.Entity.DbSet<UniversitySystemWeb.Models.Subject> Subjects { get; set; }
     }
 }
