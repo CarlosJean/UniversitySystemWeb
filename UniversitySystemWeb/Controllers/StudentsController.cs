@@ -39,17 +39,13 @@ namespace UniversitySystemWeb.Controllers
         // GET: Students/Create
         public ActionResult Create()
         {
-            var headquarterList = db.Headquarters.OrderBy(h => h.Name).ToList();
-            headquarterList.Add(new Headquarter { HeadquartersId = 0, Name = "[Seleccionar sede...]" });
-            headquarterList=headquarterList.OrderBy(h => h.HeadquartersId).ToList();
-            ViewBag.HeadquartersId = new SelectList(headquarterList, "HeadquartersId", "Name");
-
+            ViewBag.HeadquartersId = new SelectList(db.Headquarters, "HeadquartersId", "Name");
             return View();
         }
 
         // POST: Students/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StudentID,Name,LastName,HeadquartersId")] Student student)
@@ -82,8 +78,8 @@ namespace UniversitySystemWeb.Controllers
         }
 
         // POST: Students/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StudentID,Name,LastName,HeadquartersId")] Student student)

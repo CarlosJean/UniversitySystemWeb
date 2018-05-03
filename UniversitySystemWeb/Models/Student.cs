@@ -21,5 +21,9 @@ namespace UniversitySystemWeb.Models
         public int HeadquartersId { get; set; }
         
         public virtual Headquarter Headquarter { get; set; }
+
+        public ICollection<Subject> Subjects { get; set; }
+
+
     }
 }

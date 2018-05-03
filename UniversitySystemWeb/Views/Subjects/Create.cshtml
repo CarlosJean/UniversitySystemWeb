@@ -7,14 +7,22 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Subject</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TeacherId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TeacherId, new { htmlAttributes = new { @class = "form-control",@id="teacher" } })
+                @Html.ValidationMessageFor(model => model.TeacherId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -31,18 +39,124 @@
             </div>
         </div>
 
+
+
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
+
     </div>
 }
+<div class="form-group">
+    <div class="col-md-10">
+        @*<a type="button" data-toggle="modal" onclick=loadTeachers() data-target="#myModal" class="btn btn-info">Agregar Profesor</a>*@
+        <a id="btnNewHeadquarter" onclick=loadTeachers() data-toggle="modal" data-target="#myModal" class="btn btn-primary">Nueva sede</a>
+
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="tittle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="myModalBodyDiv">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<button id="btnSaveChanges" onclick=selectedTeacher() type="button" class="btn btn-primary">Save changes</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-title" id="myModalTitleDiv">
+                <center><h3 id="tittle"></h3></center>
+                <hr />
+
+            </div>
+
+            <div class="modal-body" id="myModalBodyDiv">
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button id="btnSaveChanges" onclick=selectedTeacher() type="button" class="btn btn-primary">Save changes</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>*@
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+<script type="text/javascript">
+    var loadTeachers = function () {
+        var url = "/Teachers/TeacherList";
+
+        $("#myModalBodyDiv").load(url, function () {
+
+            $("#tittle").text("Agregar nuevo");
+            $("#myModal").modal("show");
+        });
+
+
+    }
+
+    var selectedTeacher = function () {
+
+        var url = "/Subjects/selectTeacher";
+
+          $("#btnSaveChanges").click(function () {
+
+              $.ajax({
+                  type: "POST",
+
+
+
+                  })
+
+
+
+          });
+
+        //$("#btnSaveChanges").click(function () {
+
+        //    $("#teacher").text("val");
+        //    $('#myModal').modal('hide');
+
+
+
+        //});
+    }
+
+</script>
+
+
+
+

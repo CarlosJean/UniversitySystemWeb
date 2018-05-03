@@ -42,8 +42,8 @@ namespace UniversitySystemWeb.Controllers
         }
 
         // POST: Teachers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TeacherId,Name,LastName")] Teacher teacher)
@@ -74,8 +74,8 @@ namespace UniversitySystemWeb.Controllers
         }
 
         // POST: Teachers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TeacherId,Name,LastName")] Teacher teacher)
@@ -113,6 +113,12 @@ namespace UniversitySystemWeb.Controllers
             db.Teachers.Remove(teacher);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult TeacherList()
+        {
+            var list = db.Teachers.ToList();
+            return PartialView("_PartialTeacherList",list);
         }
 
         protected override void Dispose(bool disposing)

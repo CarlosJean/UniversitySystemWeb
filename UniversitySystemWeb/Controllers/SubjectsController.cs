@@ -17,7 +17,8 @@ namespace UniversitySystemWeb.Controllers
         // GET: Subjects
         public ActionResult Index()
         {
-            return View(db.Subjects.ToList());
+            var subjects = db.Subjects.Include(s => s.Teacher);
+            return View(subjects.ToList());
         }
 
         // GET: Subjects/Details/5
@@ -38,15 +39,16 @@ namespace UniversitySystemWeb.Controllers
         // GET: Subjects/Create
         public ActionResult Create()
         {
+            //ViewBag.TeacherId = new SelectList(db.Teachers, "TeacherId", "Name");
             return View();
         }
 
         // POST: Subjects/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "SubjectID,Name,Schedule")] Subject subject)
+        public ActionResult Create([Bind(Include = "SubjectID,TeacherId,Name,Schedule")] Subject subject)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace UniversitySystemWeb.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.TeacherId = new SelectList(db.Teachers, "TeacherId", "Name", subject.TeacherId);
             return View(subject);
         }
 
@@ -70,15 +73,16 @@ namespace UniversitySystemWeb.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.TeacherId = new SelectList(db.Teachers, "TeacherId", "Name", subject.TeacherId);
             return View(subject);
         }
 
         // POST: Subjects/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "SubjectID,Name,Schedule")] Subject subject)
+        public ActionResult Edit([Bind(Include = "SubjectID,TeacherId,Name,Schedule")] Subject subject)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace UniversitySystemWeb.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.TeacherId = new SelectList(db.Teachers, "TeacherId", "Name", subject.TeacherId);
             return View(subject);
         }
 
@@ -113,6 +118,13 @@ namespace UniversitySystemWeb.Controllers
             db.Subjects.Remove(subject);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult selectTeacher(Subject subject)
+        {
+
+            return View("Create",subject);
         }
 
         protected override void Dispose(bool disposing)

@@ -11,12 +11,14 @@ namespace UniversitySystemWeb.Models
         [Key]
         public int SubjectID { get; set; }
 
+        public int TeacherId { get; set; }
+
         public string Name { get; set; }
 
         public string Schedule { get; set; }
+        
+        public virtual Teacher Teacher { get; set; }
 
-        //public virtual Teacher Teacher { get; set; }
-
-        public virtual List<Student> Students { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
     }
 }
