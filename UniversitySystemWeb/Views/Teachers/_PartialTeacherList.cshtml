@@ -36,6 +36,8 @@
 
 </table>
 
+<button id="hola" onclick=selectedTeacher()>Cerrar</button>
+
 
 <script>
     $("#table tr").click(function () {
@@ -43,6 +45,33 @@
         var value = $(this).find('td:first').html();
         alert(value);
     });
+    var selectedTeacher = function () {
+
+        //var url = "/Subjects/selectTeacher";
+
+        //  $("#btnSaveChanges").click(function () {
+
+        //      $.ajax({
+        //          type: "POST",
+
+
+
+        //          })
+
+
+
+        //  });
+
+        $("#hola").click(function () {
+
+            $("#tittle").text("val");
+            $('#myModal').hide();
+
+
+
+        });
+    }
+
 
  
 

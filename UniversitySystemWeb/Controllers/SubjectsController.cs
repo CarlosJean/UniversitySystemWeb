@@ -39,7 +39,10 @@ namespace UniversitySystemWeb.Controllers
         // GET: Subjects/Create
         public ActionResult Create()
         {
-            //ViewBag.TeacherId = new SelectList(db.Teachers, "TeacherId", "Name");
+            var teacherList = db.Teachers.ToList();
+            teacherList.Add(new Teacher { TeacherId=0,Name="[Seleccione un profesor...]" });
+            teacherList = teacherList.OrderBy(t => t.Name).ToList();
+            ViewBag.TeacherId = new SelectList(teacherList, "TeacherId", "FullName");
             return View();
         }
 
