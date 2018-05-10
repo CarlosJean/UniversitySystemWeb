@@ -4,22 +4,28 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using UniversitySystemWeb.Models;
+using UniversitySystemWeb.ViewModels;
 
 namespace UniversitySystemWeb.Controllers
 {
     public class SubjectSelectionController : Controller
     {
-        UniversityDb db = new UniversityDb();
+       private UniversityDb db = new UniversityDb();
         // GET: SubjectSelection
         public ActionResult AddSubject()
         {
-            return View();
+            var subjects = db.Subjects;
+            return View(subjects.ToList());
         }
 
         [HttpGet]
         public ActionResult NewSelection()
         {
-            return View();
+            var selectionView = new StudentView();
+            selectionView.Student = new Student();
+            selectionView.Subjects = new List<Subject>();
+            Session["selectionView"] = selectionView;
+            return View(selectionView);
         }
 
 
@@ -43,7 +49,8 @@ namespace UniversitySystemWeb.Controllers
                 Data = new {Student= studentName(student) }
             };
 
-            
+            StudentView studentView = new StudentView();
+            studentView.Student = student;
 
             return result;
         }

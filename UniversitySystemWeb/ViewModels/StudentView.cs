@@ -9,6 +9,7 @@ namespace UniversitySystemWeb.ViewModels
     public class StudentView
     {
         public Student Student { get; set; }
+        public Subject Subject { get; set; }
         public List<Subject> Subjects { get; set; }
 
     }
