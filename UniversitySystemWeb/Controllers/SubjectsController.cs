@@ -124,7 +124,7 @@ namespace UniversitySystemWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult selectTeacher(Subject subject)
+        public ActionResult SelectTeacher(Subject subject)
         {
 
             return View("Create",subject);

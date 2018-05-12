@@ -18,14 +18,21 @@ namespace UniversitySystemWeb.Controllers
                 return View(subjects.ToList());
         }
         [HttpPost]
-        public ActionResult AddSubject(int id)
+        public ActionResult AddSubject(FormCollection formCollection)
         {
 
-            var studentView = Session["selectionView"] as StudentView;
-            var subject = db.Subjects.Find(id);
-            studentView.Subjects.Add(subject);
+            var subjectID = int.Parse(Request["item.SubjectID"]);
+            var selectionView = Session["selectionView"] as StudentView;
 
-            return View("NewSelection", studentView);
+            var subject = db.Subjects.Find(subjectID);
+
+            if (!selectionView.Subjects.Any(s => s.SubjectID== subject.SubjectID))
+            {
+
+                selectionView.Subjects.Add(subject);
+            }
+
+            return View("NewSelection", selectionView);
         }
 
         public ActionResult NewSelection()
@@ -39,18 +46,18 @@ namespace UniversitySystemWeb.Controllers
 
             return View(selectionView);
         }
-        [HttpPost]
-        public ActionResult NewSelection(StudentView studentView)
-        {
-            var selectionView = new StudentView
-            {
-                Student = new Student(),
-                Subjects = new List<Subject>()
-            };
-            Session["selectionView"] = selectionView;
 
-            return View(selectionView);
-        }
+        //public ActionResult NewSelection(StudentView studentView)
+        //{
+        //    var selectionView = new StudentView
+        //    {
+        //        Student = new Student(),
+        //        Subjects = new List<Subject>()
+        //    };
+        //    Session["selectionView"] = selectionView;
+
+        //    return View(selectionView);
+        //}
 
 
         public JsonResult SearchStudent(int id)
@@ -67,17 +74,20 @@ namespace UniversitySystemWeb.Controllers
                 Data = new {Student= StudentName(student) }
             };
 
-            StudentView studentView = new StudentView
-            {
-                Student = student
-            };
+            //StudentView studentView = new StudentView
+            //{
+            //    Student = student
+            //};
 
+            var selectionView = Session["selectionView"] as StudentView;
+
+            selectionView.Student = student;
             return result;
         }
 
         public string StudentName(Student student)
         {
-            string studentName = student.Name.ToString() +" "+ student.LastName.ToString();
+            string studentName = student.FullName;
             return studentName;
         }
 

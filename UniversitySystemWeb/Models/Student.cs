@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +17,9 @@ namespace UniversitySystemWeb.Models
 
         [Display(Name="Apellido")]
         public string LastName { get; set; }
+
+        [NotMapped]
+        public string FullName { get { return Name + " " + LastName; } }
 
         [Display(Name = "Sede")]
         public int HeadquartersId { get; set; }

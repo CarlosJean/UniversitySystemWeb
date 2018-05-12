@@ -1,5 +1,5 @@
 ﻿@model UniversitySystemWeb.ViewModels.StudentView
-
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 @{
     ViewBag.Title = "NewSelection";
 }
@@ -23,26 +23,19 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Student.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Student.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Student.Name, new { htmlAttributes = new { @class = "form-control", @id = "txtStudentName" } })
-                @Html.ValidationMessageFor(model => model.Student.Name, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Student.FullName, new { htmlAttributes = new { @class = "form-control", @id = "txtStudentName" } })
+                @Html.ValidationMessageFor(model => model.Student.FullName, "", new { @class = "text-danger" })
             </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            @*<input type="submit" value="Create" class="btn btn-default" />*@
         </div>
     </div>
 }
 
-@*@Html.ActionLink("Buscar estudiante", "SearchStudent", "SubjectSelection", new { id=this.Model.StudentID})*@
+@Html.ActionLink("Seleccionar materias", "AddSubject", new { }, new { @*@class = "btn btn-info",*@@id= "btnSelectSubject" })
+    <hr />
 
-
-@Html.ActionLink("Seleccionar materias", "AddSubject", new { }, new { @class = "btn btn-info" })
-
-<h2>Materias seleccionadas</h2><hr />
+<h2>Materias seleccionadas</h2>
 
 <table class="table">
     <tr>
@@ -74,3 +67,43 @@
     }
 
 </table>
+
+
+<script>
+
+   
+
+    $(function () {
+
+        $(document).ready(function () {
+
+            $/*("#btnSelectSubject").prop("disabled", true);*/
+                ("#btnSelectSubject").off("click");
+        });
+
+        $("#btnSearchStudent").on("click", function () {
+
+            $.ajax({
+
+                type: "POST",
+                url: '@Url.Action("SearchStudent")',
+                data: { id: $("#txtStudentId").val() },
+                datatype: "json",
+                cache: false,
+
+
+            success:function (data) {
+                
+                $("#txtStudentName").val(data.Student)
+            }
+            })
+            return false;
+
+
+        });
+
+
+
+          });
+
+</script>
