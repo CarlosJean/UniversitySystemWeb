@@ -21,7 +21,7 @@
                 <button id="btnSearchStudent" class="btn btn-primary">Buscar estudiante</button>
 
             </div>
-        </div> 
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Student.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -39,38 +39,38 @@
 
 @*@Html.ActionLink("Buscar estudiante", "SearchStudent", "SubjectSelection", new { id=this.Model.StudentID})*@
 
-    
-@Html.ActionLink("Seleccionar materias", "AddSubject", new { }, new {@class= "btn btn-info" } )
 
-<script>
+@Html.ActionLink("Seleccionar materias", "AddSubject", new { }, new { @class = "btn btn-info" })
 
-    $(function () {
-        $("#btnSearchStudent").on("click", function () {
+<h2>Materias seleccionadas</h2><hr />
 
-            $.ajax({
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Subject.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subject.Schedule)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Subject.Teacher.FullName)
+        </th>
+        <th></th>
+    </tr>
 
-                type: "POST",
-                url: '@Url.Action("SearchStudent")',
-                data: { id: $("#txtStudentId").val() },
-                datatype: "json",
-                cache: false,
+    @for (int i=0;i<Model.Subjects.Count;i++)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Subjects[i].Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Subjects[i].Schedule)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Subjects[i].Teacher.FullName)
+            </td>
+        </tr>
+    }
 
-                
-            success:function (data) {
-                    
-                //$("#lblResult").html(data.Student)
-                $("#txtStudentName").val(data.Student)
-            }
-            })
-                //.error(function () {
-
-                //    alert("Error")
-                //});
-            return false;
-
-
-        });
-          
-          });
-
-</script>
+</table>

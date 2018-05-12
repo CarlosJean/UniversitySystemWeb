@@ -10,29 +10,47 @@ namespace UniversitySystemWeb.Controllers
 {
     public class SubjectSelectionController : Controller
     {
-       private UniversityDb db = new UniversityDb();
+        private UniversityDb db = new UniversityDb();
         // GET: SubjectSelection
         public ActionResult AddSubject()
         {
-            var subjects = db.Subjects;
-            return View(subjects.ToList());
+                var subjects = db.Subjects;
+                return View(subjects.ToList());
+        }
+        [HttpPost]
+        public ActionResult AddSubject(int id)
+        {
+
+            var studentView = Session["selectionView"] as StudentView;
+            var subject = db.Subjects.Find(id);
+            studentView.Subjects.Add(subject);
+
+            return View("NewSelection", studentView);
         }
 
-        [HttpGet]
         public ActionResult NewSelection()
         {
-            var selectionView = new StudentView();
-            selectionView.Student = new Student();
-            selectionView.Subjects = new List<Subject>();
+            var selectionView = new StudentView
+            {
+                Student = new Student(),
+                Subjects = new List<Subject>()
+            };
             Session["selectionView"] = selectionView;
+
             return View(selectionView);
         }
+        [HttpPost]
+        public ActionResult NewSelection(StudentView studentView)
+        {
+            var selectionView = new StudentView
+            {
+                Student = new Student(),
+                Subjects = new List<Subject>()
+            };
+            Session["selectionView"] = selectionView;
 
-
-        //public ActionResult NewSelection(Student student)
-        //{
-        //    return View();
-        //}
+            return View(selectionView);
+        }
 
 
         public JsonResult SearchStudent(int id)
@@ -46,16 +64,18 @@ namespace UniversitySystemWeb.Controllers
             }
             var result = new JsonResult
             {
-                Data = new {Student= studentName(student) }
+                Data = new {Student= StudentName(student) }
             };
 
-            StudentView studentView = new StudentView();
-            studentView.Student = student;
+            StudentView studentView = new StudentView
+            {
+                Student = student
+            };
 
             return result;
         }
 
-        public string studentName(Student student)
+        public string StudentName(Student student)
         {
             string studentName = student.Name.ToString() +" "+ student.LastName.ToString();
             return studentName;
