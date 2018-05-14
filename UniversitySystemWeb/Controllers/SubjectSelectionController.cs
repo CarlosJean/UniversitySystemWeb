@@ -46,20 +46,7 @@ namespace UniversitySystemWeb.Controllers
 
             return View(selectionView);
         }
-
-        //public ActionResult NewSelection(StudentView studentView)
-        //{
-        //    var selectionView = new StudentView
-        //    {
-        //        Student = new Student(),
-        //        Subjects = new List<Subject>()
-        //    };
-        //    Session["selectionView"] = selectionView;
-
-        //    return View(selectionView);
-        //}
-
-
+        
         public JsonResult SearchStudent(int id)
         {
             var student = db.Students.Find(id);
@@ -87,10 +74,45 @@ namespace UniversitySystemWeb.Controllers
 
         public string StudentName(Student student)
         {
-            string studentName = student.FullName;
-            return studentName;
+            try
+            {
+                string studentName = student.FullName;
+                return studentName;
+            }
+            catch (Exception)
+            {
+               
+                return "Estudiante no encontrado.";
+            }
+          
         }
 
+        [HttpDelete]
+        public ActionResult RemoveSubject(int subjectID)
+        {
+            var selectionView = Session["selectionView"] as StudentView;
+            var subject = selectionView.Subjects.Find(s => s.SubjectID == subjectID);
+
+                selectionView.Subjects.Remove(subject);
+
+
+            return View("SubjectSelected", selectionView);
+        }
+
+        public ActionResult SubjectSelected()
+        {
+            var selectionView = Session["selectionView"] as StudentView;
+            if (selectionView.Subjects!=null)
+            {
+            var list = selectionView.Subjects.ToList();
+
+            return PartialView(list);
+            }
+
+            return PartialView();
+
+        }
+         
 
     }
 }

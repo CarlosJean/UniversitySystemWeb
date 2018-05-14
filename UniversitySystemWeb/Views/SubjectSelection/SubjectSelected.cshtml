@@ -1,45 +1,9 @@
 ﻿@model UniversitySystemWeb.ViewModels.StudentView
-<script src="~/Scripts/jquery-3.3.1.min.js"></script>
 @{
-    ViewBag.Title = "NewSelection";
+
+    Layout = null;
 }
-<h2>NewSelection</h2>
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Student</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Student.StudentID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Student.StudentID, new { htmlAttributes = new { @class = "form-control", @id = "txtStudentId" } })
-                @Html.ValidationMessageFor(model => model.Student.StudentID, "", new { @class = "text-danger" })<br />
-                <button id="btnSearchStudent" class="btn btn-primary">Buscar estudiante</button>
-
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.Student.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Student.FullName, new { htmlAttributes = new { @class = "form-control", @id = "txtStudentName" } })
-                @Html.ValidationMessageFor(model => model.Student.FullName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-}
-
-@Html.ActionLink("Seleccionar materias", "AddSubject", new { }, new { @*@class = "btn btn-info",*@@id= "btnSelectSubject" })
-   
-<div id="selectedSubjects">
-  
-    @Html.Partial("SubjectSelected");
-
-</div>
-@*<h2>Materias seleccionadas</h2>
+<h2>Materias seleccionadas</h2>
 
 <table class="table" id="myTable">
     <tr>
@@ -55,14 +19,14 @@
         <th></th>
     </tr>
 
-    @for (int i=0;i<Model.Subjects.Count;i++)
+    @for (int i = 0; i < Model.Subjects.Count; i++)
     {
-      
-        <tr>
-            
 
-                @Html.HiddenFor(modelItem => Model.Subjects[i].SubjectID)
-          
+        <tr>
+
+
+            @Html.HiddenFor(modelItem => Model.Subjects[i].SubjectID)
+
             <td>
                 @Html.DisplayFor(modelItem => Model.Subjects[i].Name)
             </td>
@@ -73,15 +37,15 @@
                 @Html.DisplayFor(modelItem => Model.Subjects[i].Teacher.FullName)
             </td>
             <td>
-                @Html.ActionLink("Remover materia","RemoveSubject",new { },new { @class="btn btn-danger",@id= "btnRemoveSubject" })
+                @*@Html.ActionLink("Remover materia","RemoveSubject",new { },new { @class="btn btn-danger",@id= "btnRemoveSubject" })*@
                 <a id="btnRemoveSubject[@i]" class="btn btn-danger">Remover materia</a>
             </td>
 
         </tr>
-            
-        }
 
-</table>*@
+    }
+
+</table>
 
 
 <script>
@@ -96,7 +60,7 @@
         //        ("#btnSelectSubject").off("click");
         //});
 
-        $("#btnSearchStudent").on("click", function () {
+        @*$("#btnSearchStudent").on("click", function () {
 
             $.ajax({
 
@@ -120,13 +84,13 @@
             return false;
 
 
-        });
+        });*@
 
         //$("#myTable").find("tr").on("click", function ()
         //{
         //    alert("RowIndex is: "+(this.rowIndex-1));
         //})
-        @*$("#myTable a").on("click", function () {
+        $("#myTable a").on("click", function () {
             var id= (this.parentNode.parentNode.rowIndex)-1;
             var hiddenValue = $("#Subjects_" + id + "__SubjectID").val();
             var row = (this.parentNode.parentNode.nodeName);
@@ -136,10 +100,12 @@
                 type: "DELETE",
                 url: '@Url.Action("RemoveSubject")',
                 data: {'subjectID':hiddenValue},
-                success: function () {
+                success: function (result) {
                     //$(row).Remove;
                     ////$("myTable").ajax.reload()
-                    location.reload();
+                   // location.reload();
+                    //alert("Bien");
+                    $("#selectedSubjects").html(result);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert("Error");
@@ -151,7 +117,7 @@
             })
 
 
-        });*@
+        });
         })
 
 
