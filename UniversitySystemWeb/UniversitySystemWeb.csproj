@@ -199,6 +199,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Headquarter.cs" />
+    <Compile Include="Models\Selection.cs" />
+    <Compile Include="Models\SelectionDetail.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\Teacher.cs" />
@@ -237,6 +239,7 @@
     <Content Include="Views\SubjectSelection\AddSubject.cshtml" />
     <Content Include="Views\SubjectSelection\NewSelection.cshtml" />
     <Content Include="Views\SubjectSelection\SubjectSelected.cshtml" />
+    <Content Include="Views\SubjectSelection\SubjectRemoval.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

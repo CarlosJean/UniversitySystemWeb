@@ -14,6 +14,10 @@ namespace UniversitySystemWeb.Models
 
         public System.Data.Entity.DbSet<UniversitySystemWeb.Models.Subject> Subjects { get; set; }
 
+        public System.Data.Entity.DbSet<UniversitySystemWeb.Models.Selection> Selection { get; set; }
+
+        public System.Data.Entity.DbSet<UniversitySystemWeb.Models.SelectionDetail> SelectionDetail { get; set; }
+        
         public System.Data.Entity.DbSet<UniversitySystemWeb.Models.Teacher> Teachers { get; set; }
     }
 }

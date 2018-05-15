@@ -37,8 +37,7 @@
                 @Html.DisplayFor(modelItem => Model.Subjects[i].Teacher.FullName)
             </td>
             <td>
-                @*@Html.ActionLink("Remover materia","RemoveSubject",new { },new { @class="btn btn-danger",@id= "btnRemoveSubject" })*@
-                <a id="btnRemoveSubject[@i]" class="btn btn-danger">Remover materia</a>
+                <a id="btnRemoveSubject[@i]" class="btn btn-danger" style="color:aliceblue">Remover materia</a>
             </td>
 
         </tr>
@@ -50,70 +49,21 @@
 
 <script>
 
-
-
     $(function () {
-
-        //$(document).ready(function () {
-
-        //    $/*("#btnSelectSubject").prop("disabled", true);*/
-        //        ("#btnSelectSubject").off("click");
-        //});
-
-        @*$("#btnSearchStudent").on("click", function () {
-
-            $.ajax({
-
-                type: "POST",
-                url: '@Url.Action("SearchStudent")',
-                data: { id: $("#txtStudentId").val() },
-                datatype: "json",
-                cache: false,
-
-
-                success:function (data) {
-
-                    $("#txtStudentName").val(data.Student)
-                },
-                error: function () {
-                    alert("Estudiante no encontrado");
-
-                }
-            })
-
-            return false;
-
-
-        });*@
-
-        //$("#myTable").find("tr").on("click", function ()
-        //{
-        //    alert("RowIndex is: "+(this.rowIndex-1));
-        //})
         $("#myTable a").on("click", function () {
             var id= (this.parentNode.parentNode.rowIndex)-1;
             var hiddenValue = $("#Subjects_" + id + "__SubjectID").val();
             var row = (this.parentNode.parentNode.nodeName);
-            //alert(row);
-            //alert(id);
             $.ajax({
                 type: "DELETE",
                 url: '@Url.Action("RemoveSubject")',
                 data: {'subjectID':hiddenValue},
                 success: function (result) {
-                    //$(row).Remove;
-                    ////$("myTable").ajax.reload()
-                   // location.reload();
-                    //alert("Bien");
                     $("#selectedSubjects").html(result);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert("Error");
                 }
-
-
-
-
             })
 
 

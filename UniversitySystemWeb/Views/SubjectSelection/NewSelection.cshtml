@@ -5,7 +5,7 @@
 }
 <h2>NewSelection</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("NewSelection","SubjectSelection",FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -30,58 +30,60 @@
             </div>
         </div>
     </div>
+    <input type="submit" value="Guardar selección" class="btn btn-success" style="float:right" />
+
 }
 
-@Html.ActionLink("Seleccionar materias", "AddSubject", new { }, new { @*@class = "btn btn-info",*@@id= "btnSelectSubject" })
-   
+@Html.ActionLink("Seleccionar materias", "AddSubject", new { }, new { @*@class = "btn btn-info",*@@id = "btnSelectSubject"
+})
 <div id="selectedSubjects">
-  
+
     @Html.Partial("SubjectSelected");
 
 </div>
 @*<h2>Materias seleccionadas</h2>
 
-<table class="table" id="myTable">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Subject.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subject.Schedule)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Subject.Teacher.FullName)
-        </th>
-        <th></th>
-    </tr>
-
-    @for (int i=0;i<Model.Subjects.Count;i++)
-    {
-      
+    <table class="table" id="myTable">
         <tr>
-            
-
-                @Html.HiddenFor(modelItem => Model.Subjects[i].SubjectID)
-          
-            <td>
-                @Html.DisplayFor(modelItem => Model.Subjects[i].Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Subjects[i].Schedule)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Subjects[i].Teacher.FullName)
-            </td>
-            <td>
-                @Html.ActionLink("Remover materia","RemoveSubject",new { },new { @class="btn btn-danger",@id= "btnRemoveSubject" })
-                <a id="btnRemoveSubject[@i]" class="btn btn-danger">Remover materia</a>
-            </td>
-
+            <th>
+                @Html.DisplayNameFor(model => model.Subject.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject.Schedule)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject.Teacher.FullName)
+            </th>
+            <th></th>
         </tr>
-            
-        }
 
-</table>*@
+        @for (int i=0;i<Model.Subjects.Count;i++)
+        {
+
+            <tr>
+
+
+                    @Html.HiddenFor(modelItem => Model.Subjects[i].SubjectID)
+
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Subjects[i].Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Subjects[i].Schedule)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.Subjects[i].Teacher.FullName)
+                </td>
+                <td>
+                    @Html.ActionLink("Remover materia","RemoveSubject",new { },new { @class="btn btn-danger",@id= "btnRemoveSubject" })
+                    <a id="btnRemoveSubject[@i]" class="btn btn-danger">Remover materia</a>
+                </td>
+
+            </tr>
+
+            }
+
+    </table>*@
 
 
 <script>

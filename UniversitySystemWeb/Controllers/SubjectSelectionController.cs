@@ -46,7 +46,31 @@ namespace UniversitySystemWeb.Controllers
 
             return View(selectionView);
         }
-        
+
+        [HttpPost]
+        public ActionResult NewSelection(StudentView studentView)
+        {
+            studentView = Session["selectionView"] as StudentView;
+            var student = db.Students.Find(studentView.Student.StudentID);
+
+            foreach (var item in studentView.Subjects)
+            {
+
+                var subject = db.Subjects.Find(item.SubjectID);
+                subject.Students.Add(student);
+                db.SaveChanges();
+
+            }
+
+            studentView = new StudentView
+            {
+                Student = new Student(),
+                Subjects = new List<Subject>()
+            };
+
+            return View(studentView);
+        }
+
         public JsonResult SearchStudent(int id)
         {
             var student = db.Students.Find(id);
@@ -59,16 +83,12 @@ namespace UniversitySystemWeb.Controllers
             var result = new JsonResult
             {
                 Data = new {Student= StudentName(student) }
+                
             };
 
-            //StudentView studentView = new StudentView
-            //{
-            //    Student = student
-            //};
-
             var selectionView = Session["selectionView"] as StudentView;
-
             selectionView.Student = student;
+
             return result;
         }
 
@@ -99,18 +119,11 @@ namespace UniversitySystemWeb.Controllers
             return View("SubjectSelected", selectionView);
         }
 
-        public ActionResult SubjectSelected()
+
+        public ActionResult SubjectRemoval()
         {
-            var selectionView = Session["selectionView"] as StudentView;
-            if (selectionView.Subjects!=null)
-            {
-            var list = selectionView.Subjects.ToList();
 
-            return PartialView(list);
-            }
-
-            return PartialView();
-
+            return View();
         }
          
 
