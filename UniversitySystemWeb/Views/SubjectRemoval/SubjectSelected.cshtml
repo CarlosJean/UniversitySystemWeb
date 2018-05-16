@@ -18,33 +18,29 @@
         </th>
         <th></th>
     </tr>
-    @if (Model.Subjects.Count > 0)
+
+    @for (int i = 0; i < Model.Subjects.Count; i++)
     {
-        for (int i = 0; i < Model.Subjects.Count; i++)
-        {
 
-            <tr>
+        <tr>
 
 
-                @Html.HiddenFor(modelItem => Model.Subjects[i].SubjectID)
+            @Html.HiddenFor(modelItem => Model.Subjects[i].SubjectID)
 
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Subjects[i].Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Subjects[i].Schedule)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Subjects[i].Teacher.FullName)
-                </td>
-                <td>
-                    <a id="btnRemoveSubject[@i]" class="btn btn-danger" style="color:aliceblue">Remover materia</a>
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Subjects[i].Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Subjects[i].Schedule)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => Model.Subjects[i].Teacher.FullName)
+            </td>
+            <td>
+                <a id="btnRemoveSubject[@i]" class="btn btn-danger" style="color:aliceblue">Remover materia</a>
+            </td>
 
-            </tr>
-
-        }
-
+        </tr>
 
     }
 

@@ -8,6 +8,12 @@ namespace UniversitySystemWeb.Models
 {
     public class Subject
     {
+        public Subject()
+        {
+            Students = new HashSet<Student>();
+        }
+
+
         [Key]
         public int SubjectID { get; set; }
 

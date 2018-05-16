@@ -191,6 +191,7 @@
     <Compile Include="Controllers\HeadquartersController.cs" />
     <Compile Include="Controllers\StartController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\SubjectRemovalController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Controllers\SubjectSelectionController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
@@ -239,7 +240,8 @@
     <Content Include="Views\SubjectSelection\AddSubject.cshtml" />
     <Content Include="Views\SubjectSelection\NewSelection.cshtml" />
     <Content Include="Views\SubjectSelection\SubjectSelected.cshtml" />
-    <Content Include="Views\SubjectSelection\SubjectRemoval.cshtml" />
+    <Content Include="Views\SubjectRemoval\SubjectRemoval.cshtml" />
+    <Content Include="Views\SubjectRemoval\SubjectSelected.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

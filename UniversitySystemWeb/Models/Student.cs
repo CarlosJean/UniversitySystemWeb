@@ -9,6 +9,12 @@ namespace UniversitySystemWeb.Models
 {
     public class Student
     {
+
+        public Student()
+        {
+            Subjects = new HashSet<Subject>();
+        }
+
         [Key]
         public int StudentID { get; set; }
 
@@ -26,7 +32,7 @@ namespace UniversitySystemWeb.Models
         
         public virtual Headquarter Headquarter { get; set; }
 
-        public ICollection<Subject> Subjects { get; set; }
+        public virtual ICollection<Subject> Subjects { get; set; }
 
 
     }

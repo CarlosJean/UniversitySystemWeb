@@ -53,13 +53,20 @@ namespace UniversitySystemWeb.Controllers
             studentView = Session["selectionView"] as StudentView;
             var student = db.Students.Find(studentView.Student.StudentID);
 
+            //foreach (var item in studentView.Subjects)
+            //{
+
+            //    var subject = db.Subjects.Find(item.SubjectID);
+            //    subject.Students.Add(student);
+            //    db.SaveChanges();
+
+            //}
+
             foreach (var item in studentView.Subjects)
             {
-
                 var subject = db.Subjects.Find(item.SubjectID);
-                subject.Students.Add(student);
+                student.Subjects.Add(subject);
                 db.SaveChanges();
-
             }
 
             studentView = new StudentView
