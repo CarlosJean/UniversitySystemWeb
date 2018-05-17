@@ -69,11 +69,8 @@ namespace UniversitySystemWeb.Controllers
                 db.SaveChanges();
             }
 
-            studentView = new StudentView
-            {
-                Student = new Student(),
-                Subjects = new List<Subject>()
-            };
+            studentView.Student = new Student();
+            studentView.Subjects = new List<Subject>();
 
             return View(studentView);
         }

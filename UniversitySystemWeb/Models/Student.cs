@@ -10,10 +10,10 @@ namespace UniversitySystemWeb.Models
     public class Student
     {
 
-        public Student()
-        {
-            Subjects = new HashSet<Subject>();
-        }
+        //public Student()
+        //{
+        //    Subjects = new HashSet<Subject>();
+        //}
 
         [Key]
         public int StudentID { get; set; }

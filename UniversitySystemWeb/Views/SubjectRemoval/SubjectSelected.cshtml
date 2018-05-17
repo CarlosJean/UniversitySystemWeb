@@ -21,26 +21,30 @@
 
     @for (int i = 0; i < Model.Subjects.Count; i++)
     {
+       
+    <tr>
 
-        <tr>
 
+        @Html.HiddenFor(modelItem => Model.Subjects[i].SubjectID)
+        @Html.HiddenFor(modelItem => Model.Subjects[i].Name)
 
-            @Html.HiddenFor(modelItem => Model.Subjects[i].SubjectID)
+        <td>
+            @Html.DisplayFor(modelItem => Model.Subjects[i].Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Subjects[i].Schedule)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Subjects[i].Teacher.FullName)
+        </td>
+        <td>
+            <a id="btnRemoveSubject[@i]" class="btn btn-danger" style="color:aliceblue">Remover materia</a>
+            @*<input type="submit"  class="btn btn-danger" value="Remover materia" />*@
+        </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => Model.Subjects[i].Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Subjects[i].Schedule)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.Subjects[i].Teacher.FullName)
-            </td>
-            <td>
-                <a id="btnRemoveSubject[@i]" class="btn btn-danger" style="color:aliceblue">Remover materia</a>
-            </td>
+    </tr>
 
-        </tr>
+        
 
     }
 
@@ -51,12 +55,17 @@
 
     $(function () {
         $("#myTable a").on("click", function () {
-            var id= (this.parentNode.parentNode.rowIndex)-1;
+           
+                var id= (this.parentNode.parentNode.rowIndex)-1;
             var hiddenValue = $("#Subjects_" + id + "__SubjectID").val();
+            var subjectName = $("#Subjects_" + id + "__Name").val();
             var row = (this.parentNode.parentNode.nodeName);
+            var r = confirm("¿Desea eliminar " + subjectName +"?");
+
+            if (r == true) {
             $.ajax({
                 type: "DELETE",
-                url: '@Url.Action("RemoveSubject")',
+                url: '@Url.Action("RetireSubject")',
                 data: {'subjectID':hiddenValue},
                 success: function (result) {
                     $("#selectedSubjects").html(result);
@@ -65,6 +74,8 @@
                     alert("Error");
                 }
             })
+            }
+          
 
 
         });

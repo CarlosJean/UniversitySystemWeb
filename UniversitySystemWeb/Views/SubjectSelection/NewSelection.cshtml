@@ -1,20 +1,19 @@
 ﻿@model UniversitySystemWeb.ViewModels.StudentView
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 @{
-    ViewBag.Title = "NewSelection";
+    ViewBag.Title = "Selección de materias";
 }
-<h2>NewSelection</h2>
+<h2>Selección de materias</h2>
 
 @using (Html.BeginForm("NewSelection","SubjectSelection",FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Student</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.Student.StudentID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Student.StudentID, "Código del estudiante", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Student.StudentID, new { htmlAttributes = new { @class = "form-control", @id = "txtStudentId" } })
                 @Html.ValidationMessageFor(model => model.Student.StudentID, "", new { @class = "text-danger" })<br />
@@ -23,7 +22,7 @@
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Student.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Student.FullName, "Nombre del estudiante", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Student.FullName, new { htmlAttributes = new { @class = "form-control", @id = "txtStudentName" } })
                 @Html.ValidationMessageFor(model => model.Student.FullName, "", new { @class = "text-danger" })
@@ -35,10 +34,11 @@
 }
 
 @Html.ActionLink("Seleccionar materias", "AddSubject", new { }, new { @*@class = "btn btn-info",*@@id = "btnSelectSubject"
+
 })
 <div id="selectedSubjects">
 
-    @Html.Partial("SubjectSelected");
+    @Html.Partial("SubjectSelected")
 
 </div>
 @*<h2>Materias seleccionadas</h2>

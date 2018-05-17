@@ -18,6 +18,7 @@ namespace UniversitySystemWeb.Models
         [Display(Name = "Apellido")]
         public string LastName { get; set; }
 
+        [Display(Name = "Profesor")]
         [NotMapped]
         public string FullName { get { return Name + " " + LastName; } }
 

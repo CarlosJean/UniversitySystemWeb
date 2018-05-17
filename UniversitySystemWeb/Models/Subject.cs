@@ -8,10 +8,10 @@ namespace UniversitySystemWeb.Models
 {
     public class Subject
     {
-        public Subject()
-        {
-            Students = new HashSet<Student>();
-        }
+        //public Subject()
+        //{
+        //    Students = new HashSet<Student>();
+        //}
 
 
         [Key]
@@ -19,8 +19,10 @@ namespace UniversitySystemWeb.Models
 
         public int TeacherId { get; set; }
 
+        [Display(Name="Materia")]
         public string Name { get; set; }
 
+        [Display(Name = "Horario")]
         public string Schedule { get; set; }
         
         public virtual Teacher Teacher { get; set; }

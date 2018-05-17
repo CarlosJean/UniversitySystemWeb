@@ -45,5 +45,21 @@ namespace UniversitySystemWeb.Controllers
             return View(studentView);
         }
 
+        [HttpDelete]
+        public ActionResult RetireSubject(int subjectID)
+        {
+           var studentView = Session["removalView"] as StudentView;
+
+            var subject = db.Subjects.Find(subjectID);
+
+            var student = db.Students.Find(studentView.Student.StudentID);
+
+            var subjectToRemove=studentView.Subjects.Find(s => s.SubjectID==subject.SubjectID);
+            studentView.Subjects.Remove(subjectToRemove);
+            student.Subjects.Remove(subject);
+            db.SaveChanges();
+
+            return View("SubjectSelected", studentView);
+        }
     }
 }
